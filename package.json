@@ -40,7 +40,6 @@
   },
   "dependencies": {
     "dotenv": "^4.0.0",
-    "envs": "^0.1.6",
     "global": "^4.3.2",
     "shortid": "^2.2.8",
     "slack-node": "^0.1.8"

@@ -1,10 +1,12 @@
 require('dotenv').config()
-const envs = require('envs')
-const { processAttachments }  = require(envs('TESTCAFE_SLACK_UPLOADER_PATH', './uploader'))
+const env = process.env
+
+
+const { processAttachments }  = require(env['TESTCAFE_SLACK_UPLOADER_PATH'] || './uploader')
 const slackNode = require('slack-node')
 
 const slack = new slackNode()
-slack.setWebhook(envs('TESTCAFE_SLACK_WEBHOOK', 'http://example.com'))
+slack.setWebhook(env['TESTCAFE_SLACK_WEBHOOK'] || 'http://example.com')
 
 const message = []
 const errorMessage = []
@@ -12,8 +14,8 @@ const attachments = []
 
 const sendMessage = (message, slackProperties = null, exit) => {
     slack.webhook({
-        channel: envs('TESTCAFE_SLACK_CHANNEL', '#testcafe'),
-        username: envs('TESTCAFE_SLACK_BOT', 'testcafebot'),
+        channel: env['TESTCAFE_SLACK_CHANNEL'] || '#testcafe',
+        username: env['TESTCAFE_SLACK_BOT'] || 'testcafebot',
         text: message,
         ...slackProperties
     }, function (err, response) {

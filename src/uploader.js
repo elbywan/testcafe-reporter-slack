@@ -1,14 +1,15 @@
 const AWS = require('aws-sdk')
 const fs = require('fs')
 const shortid = require('shortid')
-const envs = require('envs')
+
+const env = process.env
 
 const awsConfig = {
     s3: new AWS.S3(new AWS.Config({
-        credentials: new AWS.SharedIniFileCredentials({ profile: envs('TESTCAFE_SLACK_UPLOADER_AWS_PROFILE', 'default') })
+        credentials: new AWS.SharedIniFileCredentials({ profile: env['TESTCAFE_SLACK_UPLOADER_AWS_PROFILE'] || 'default' })
     })),
-    bucket: envs('TESTCAFE_SLACK_UPLOADER_S3_BUCKET', 'bucket'),
-    keyBase: envs('TESTCAFE_SLACK_UPLOADER_S3_KEY', '')
+    bucket: env['TESTCAFE_SLACK_UPLOADER_S3_BUCKET'] || 'bucket',
+    keyBase: env['TESTCAFE_SLACK_UPLOADER_S3_KEY'] || ''
 }
 
 const uploadFile = function(filePath, aws) {
