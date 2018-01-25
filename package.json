@@ -27,7 +27,6 @@
     "plugin"
   ],
   "devDependencies": {
-    "aws-sdk": "^2.186.0",
     "callsite-record": "^3.2.0",
     "del": "^1.2.0",
     "gulp": "^3.9.1",
@@ -39,6 +38,7 @@
     "testcafe": "^0.2.0-alpha"
   },
   "dependencies": {
+    "aws-sdk": "^2.186.0",
     "dotenv": "^4.0.0",
     "global": "^4.3.2",
     "shortid": "^2.2.8",
