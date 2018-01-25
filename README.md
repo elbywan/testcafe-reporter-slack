@@ -27,7 +27,7 @@ In order to use this TestCafe reporter plugin it is necessary to define .env var
 ```bash
 TESTCAFE_SLACK_WEBHOOK=https://hooks.slack.com/services/*****
 TESTCAFE_SLACK_CHANNEL='#testcafe'
-TESTCAFE_SLACK_USERNAME=testcafebot
+TESTCAFE_SLACK_BOT=testcafebot
 ```
 
 --------
