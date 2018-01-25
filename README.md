@@ -12,7 +12,9 @@ Once configured the repoter sends test results to Slack depending on a .env file
 ## Setup instructions
 Follow the instructions bellow to configure this plugin.
 
-First install this package globaly to the machine you would like to run your tests on and then:
+```bash
+npm i -D testcafe-reporter-slack-image-fork
+```
 
 ## Testing
 Running TestCafe with testcafe-reporter-slack.
@@ -68,7 +70,7 @@ TESTCAFE_SLACK_UPLOADER_PATH='/path/to/your/custom/js/uploader/file.js'
 Now run your tests from the commmand line with the ki-reporter specified, e.g.:
 
 ```
-$ testcafe chrome 'path/to/test/file.js' --reporter slack
+$ testcafe chrome 'path/to/test/file.js' --reporter slack-image-fork
 ```
 
 When you use TestCafe API, you can pass the reporter name to the `reporter()` method:
