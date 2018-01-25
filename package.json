@@ -1,10 +1,10 @@
 {
-  "name": "testcafe-reporter-slack",
-  "version": "0.0.6",
+  "name": "testcafe-reporter-slack-image-fork",
+  "version": "0.0.7",
   "description": "TestCafe slack reporter plugin.",
   "repository": {
     "type": "git",
-    "url": "git@github.com:Shafied/testcafe-reporter-slack.git"
+    "url": "https://github.com/elbywan/testcafe-reporter-slack"
   },
   "author": {
     "name": "Shafied",
@@ -27,9 +27,10 @@
     "plugin"
   ],
   "devDependencies": {
+    "aws-sdk": "^2.186.0",
     "callsite-record": "^3.2.0",
     "del": "^1.2.0",
-    "gulp": "^3.9.0",
+    "gulp": "^3.9.1",
     "gulp-babel": "^5.2.1",
     "gulp-mocha": "^2.2.0",
     "normalize-newline": "^1.0.2",
@@ -38,8 +39,10 @@
     "testcafe": "^0.2.0-alpha"
   },
   "dependencies": {
-    "slack-node": "^0.1.8",
     "dotenv": "^4.0.0",
-    "envs": "^0.1.6"
+    "envs": "^0.1.6",
+    "global": "^4.3.2",
+    "shortid": "^2.2.8",
+    "slack-node": "^0.1.8"
   }
 }

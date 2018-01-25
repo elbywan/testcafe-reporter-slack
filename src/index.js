@@ -1,28 +1,30 @@
-import SlackMessage from './SlackMessage'
+import child_process from 'child_process'
+import path from 'path'
 
 export default function () {
     return {
 
         noColors: true,
+        slacker: null,
 
         reportTaskStart (startTime, userAgents, testCount) {
-            this.slack = new SlackMessage();
+            this.slacker = child_process.fork(path.resolve(__dirname, 'slacker.js'))
             this.startTime = startTime;
             this.testCount = testCount;
 
-            this.slack.sendMessage(`Starting testcafe ${startTime}. \n Running tests in: ${userAgents}`)
+            this.slacker.send({ action: 'sendMessage', data: `Starting testcafe ${startTime}. \n Running tests in: ${userAgents}` });
         },
 
         reportFixtureStart (name, path) {
             this.currentFixtureName = name;
-            this.slack.addMessage(this.currentFixtureName);
+            this.slacker.send({ action: 'addMessage', data: this.currentFixtureName });
         },
 
         reportTestDone (name, testRunInfo) {
             const hasErr = testRunInfo.errs.length > 0;
             const result = hasErr ? ':heavy_multiplication_x:' : ':heavy_check_mark: ';
 
-            this.slack.addMessage(`${result} ${name}`);
+            this.slacker.send({ action: 'addMessage', data: `${result} ${name}` });
 
             if (hasErr) {
                 this.renderErrors(testRunInfo.errs);
@@ -31,7 +33,11 @@ export default function () {
 
         renderErrors(errors) {
             errors.forEach((error, id) => {
-                this.slack.addErrorMessage(this.formatError(error, `${id + 1} `));
+                const formattedError = this.formatError(error, `${id + 1} `)
+                this.slacker.send({
+                    action: 'addError',
+                    data: { message: formattedError, screenshotPath: error.screenshotPath}
+                });
             })
         },
 
@@ -46,8 +52,8 @@ export default function () {
 
             footer = `\n*${footer}* (Duration: ${durationStr})`;
 
-            this.slack.addMessage(footer);
-            this.slack.sendTestReport(this.testCount - passed);
+            this.slacker.send({ action: 'addMessage', data: footer });
+            this.slacker.send({ action: 'sendReport', data: this.testCount - passed });
         }
     }
 }
