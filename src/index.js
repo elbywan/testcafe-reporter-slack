@@ -1,6 +1,8 @@
 import child_process from 'child_process'
 import path from 'path'
 
+const quiet = process.env['TESTCAFE_SLACK_QUIET'] || false
+
 export default function () {
     return {
 
@@ -12,7 +14,8 @@ export default function () {
             this.startTime = startTime;
             this.testCount = testCount;
 
-            this.slacker.send({ action: 'sendMessage', data: `Starting testcafe ${startTime}. \n Running tests in: ${userAgents}` });
+            if(!quiet)
+                this.slacker.send({ action: 'sendMessage', data: `Starting testcafe ${startTime}. \n Running tests in: ${userAgents}` });
         },
 
         reportFixtureStart (name, path) {
@@ -53,7 +56,8 @@ export default function () {
             footer = `\n*${footer}* (Duration: ${durationStr})`;
 
             this.slacker.send({ action: 'addMessage', data: footer });
-            this.slacker.send({ action: 'sendReport', data: this.testCount - passed });
+            if(!quiet || this.testCount - passed > 0)
+                this.slacker.send({ action: 'sendReport', data: this.testCount - passed });
         }
     }
 }

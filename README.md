@@ -30,6 +30,14 @@ TESTCAFE_SLACK_CHANNEL='#testcafe'
 TESTCAFE_SLACK_BOT=testcafebot
 ```
 
+*Quiet mode*
+
+Outputs to slack only on errors.
+
+```bash
+TESTCAFE_SLACK_QUIET=true
+```
+
 --------
 
 **If you are using the default AWS S3 uploader**

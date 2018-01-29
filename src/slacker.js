@@ -1,7 +1,6 @@
 require('dotenv').config()
 const env = process.env
 
-
 const { processAttachments }  = require(env['TESTCAFE_SLACK_UPLOADER_PATH'] || './uploader')
 const slackNode = require('slack-node')
 
