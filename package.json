@@ -1,6 +1,6 @@
 {
   "name": "testcafe-reporter-slack-image-fork",
-  "version": "0.0.8",
+  "version": "0.0.9",
   "description": "TestCafe slack reporter plugin.",
   "repository": {
     "type": "git",
